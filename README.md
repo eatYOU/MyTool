@@ -11,6 +11,6 @@ bool saveCsharp 	= true		//是否保存C#文件
 bool haveCommit		= false		//生成的C#是否具有注释
 bool readBook 		= true		//是否读取整个工作薄
 bool lowcase 		= false		//是否字段转换为小写
-int headerLine 		= 3		//表头的行数
+int headerLine 		= 3		  //表头的行数
 ```
 
