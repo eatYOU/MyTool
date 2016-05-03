@@ -1,18 +1,19 @@
+## 配置文件
 ```
-//Excel路径,可多个路径
+//载入的Excel路径,可添加多个
 string excelPath = E:\OneDrive\Excel\TNT\TNT_data.xlsx
 string excelPath = E:\OneDrive\Excel\TNT\TNT_info.xlsx
 ```
 ```
-//文件保存路径，没有的话会自动创建
+//文件保存路径，如果没有会自动创建
 string savePath = E:\OneDrive\Excel\TNT\JSON\
 ```
 ```
-//是否对象内换行
+//是否{对象}内换行
 bool splitSep = true
 ```
 ```
-//是否数组内换行
+//是否[数组]内换行
 bool splitDiv = true
 ```
 ```
