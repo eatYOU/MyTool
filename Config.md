@@ -1,4 +1,4 @@
-## 配置文件
+## Excel2Json.Config.md
 ```
 //载入的Excel路径,可添加多个
 string excelPath = E:\OneDrive\Excel\TNT\TNT_data.xlsx
