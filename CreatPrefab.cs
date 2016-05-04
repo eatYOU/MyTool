@@ -19,19 +19,25 @@ public class CreatPrefab : MonoBehaviour {
 	private int index = 0;
 	
 	void Start() {
-		if (targetObject) {
-			tgtTran = targetObject.transform;
-			Debug.Log ("TARGET : " + targetObject.name);
+		if (!targetObject) {
+			Debug.Log ("Target not exist!");
+			return;
 		}
-		if (orginObject) {
-			orginObject.SetActive(false);
-			Debug.Log ("ORGIN : " + orginObject.name);
+		if (!orginObject) {
+			Debug.Log ("Orgin not exist!");
+			return;
 		}
-		if (saveFolder) {
-			savePath = AssetDatabase.GetAssetPath(saveFolder);
-			Debug.Log ("savePath : " + savePath);
+		if (!saveFolder) {
+			Debug.Log ("savePath not exist!");
+			return;
 		}
 		if (targetObject && orginObject && saveFolder) {
+			tgtTran = targetObject.transform;
+			orginObject.SetActive(false);
+			savePath = AssetDatabase.GetAssetPath(saveFolder);
+			Debug.Log ("savePath : " + savePath);
+			Debug.Log ("ORGIN : " + orginObject.name);
+			Debug.Log ("TARGET : " + targetObject.name);
 			StartCoroutine(Control());
 		}
 	}
@@ -43,8 +49,10 @@ public class CreatPrefab : MonoBehaviour {
 			orgTran = mapTran.Find (orginObject.name);
 			StartCoroutine(Implement());
 			yield return new WaitForSeconds (1.0f);
-			index += 1;
+			index ++;
 			StartCoroutine(Control());
+		} else {
+			Debug.Log ("Can't Find Orgin GameObject!")
 		}
 	}
 
