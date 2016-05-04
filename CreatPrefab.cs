@@ -28,32 +28,31 @@ public class CreatPrefab : MonoBehaviour {
 			return;
 		}
 		if (!saveFolder) {
-			Debug.Log ("savePath not exist!");
+			Debug.Log ("SavePath not exist!");
 			return;
 		}
-		if (targetObject && orginObject && saveFolder) {
-			tgtTran = targetObject.transform;
-			orginObject.SetActive(false);
-			savePath = AssetDatabase.GetAssetPath(saveFolder);
-			Debug.Log ("savePath : " + savePath);
-			Debug.Log ("ORGIN : " + orginObject.name);
-			Debug.Log ("TARGET : " + targetObject.name);
-			StartCoroutine(Control());
-		}
+		
+		tgtTran = targetObject.transform;
+		orginObject.SetActive(false);
+		savePath = AssetDatabase.GetAssetPath(saveFolder);
+		Debug.Log ("savePath : " + savePath);
+		Debug.Log ("ORGIN : " + orginObject.name);
+		Debug.Log ("TARGET : " + targetObject.name);
+		StartCoroutine(Control());
 	}
 
-	IEnumerator Control() {
+	IEnumerator Control(int idx) {
 		mapTran = gameObject.transform.GetChild(index);
-		if (mapTran) {
-			mapName = mapTran.gameObject.name;
-			orgTran = mapTran.Find (orginObject.name);
-			StartCoroutine(Implement());
-			yield return new WaitForSeconds (1.0f);
-			index ++;
-			StartCoroutine(Control());
-		} else {
-			Debug.Log ("Can't Find Orgin GameObject!")
+		if (!mapTran) {
+			Debug.Log ("Can't Find Orgin GameObject!");
+			return;
 		}
+		mapName = mapTran.gameObject.name;
+		orgTran = mapTran.Find (orginObject.name);
+		StartCoroutine(Implement());
+		yield return new WaitForSeconds (1.0f);
+		index ++;
+		StartCoroutine(Control());
 	}
 
 	IEnumerator Implement() {
