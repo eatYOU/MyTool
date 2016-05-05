@@ -2,8 +2,10 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
-using System.Collections.Generic;
 
+///<summary>
+///批量替换预制体中的子对象
+///</summary>
 public class CreatPrefab : MonoBehaviour {
 	
 	public GameObject targetObject;
@@ -41,18 +43,18 @@ public class CreatPrefab : MonoBehaviour {
 		StartCoroutine(Control());
 	}
 
-	IEnumerator Control(int idx) {
-		mapTran = gameObject.transform.GetChild(index);
-		if (!mapTran) {
+	IEnumerator Control() {
+		if ((mapTran = gameObject.transform.GetChild(index))) {
+			mapName = mapTran.gameObject.name;
+			orgTran = mapTran.Find (orginObject.name);
+			StartCoroutine(Implement());
+			yield return new WaitForSeconds (1.0f);
+			index ++;
+			StartCoroutine(Control());
+		} else {
 			Debug.Log ("Can't Find Orgin GameObject!");
-			return;
 		}
-		mapName = mapTran.gameObject.name;
-		orgTran = mapTran.Find (orginObject.name);
-		StartCoroutine(Implement());
-		yield return new WaitForSeconds (1.0f);
-		index ++;
-		StartCoroutine(Control());
+		
 	}
 
 	IEnumerator Implement() {
