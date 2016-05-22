@@ -225,14 +225,16 @@ namespace MyTool
 		public static string ToJson(DataTable __dt, string sep, string div, int header)  
 		{  
 			StringBuilder __js = new StringBuilder();  
-			__js.Append("[");  
+			__js.Append("{" + div);  
 			DataRowCollection __drc = __dt.Rows;  
 			for (int i = header - 1; i < __drc.Count; i++)  
 			{  	
 				if (__drc[i][0].ToString() != "") 
 				{
-					__js.Append("{");  
-					for (int j = 0; j < __dt.Columns.Count; j++)  
+					__js.Append("\"");  
+					__js.Append(__drc[i][0].ToString());  
+					__js.Append("\":{" + sep);  
+					for (int j = 1; j < __dt.Columns.Count; j++)  
 					{  
 						string strKey = __dt.Columns[j].ColumnName;  
 						string strValue = __drc[i][j].ToString();
@@ -252,7 +254,7 @@ namespace MyTool
 				}  
 			}  
 			__js.Remove(__js.Length - div.Length - 1, div.Length + 1);  
-			__js.Append("]");  
+			__js.Append(div + "}");  
 			return __js.ToString();  
 		}  
 		
