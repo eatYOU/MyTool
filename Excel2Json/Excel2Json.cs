@@ -183,7 +183,7 @@ sealed public class Excel2Json
 		string filePath = savePath + fileName + fileType;
 		using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write)) 
 		{
-			using (TextWriter writer = new StreamWriter(file, Encoding.Default))
+			using (TextWriter writer = new StreamWriter(file, Encoding.UTF8))
 				writer.Write(bytes);
 		}
 	}
