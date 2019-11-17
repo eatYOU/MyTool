@@ -1,4 +1,4 @@
-﻿using System;  
+using System;  
 using System.Collections.Generic;  
 using System.Text;  
 using System.Data;  
@@ -23,23 +23,23 @@ namespace MyTool
 				char c = s.ToCharArray()[i];  
 				switch (c)  
 				{  
-				case '\"':  
+					case '\"':  
 					sb.Append("\\\""); break;  
-				case '\\':  
+					case '\\':  
 					sb.Append("\\\\"); break;  
-				case '/':  
+					case '/':  
 					sb.Append("\\/"); break;  
-				case '\b':  
+					case '\b':  
 					sb.Append("\\b"); break;  
-				case '\f':  
+					case '\f':  
 					sb.Append("\\f"); break;  
-				case '\n':  
+					case '\n':  
 					sb.Append("\\n"); break;  
-				case '\r':  
+					case '\r':  
 					sb.Append("\\r"); break;  
-				case '\t':  
+					case '\t':  
 					sb.Append("\\t"); break;  
-				default:  
+					default:  
 					sb.Append(c); break;  
 				}  
 			}  
@@ -54,11 +54,11 @@ namespace MyTool
 			if (type == typeof(string))  
 			{  
 				str = String2Json(str);  
-				str = "\"" + str + "\"";  
+				str = StringFormat(str, "||");  
 			}  
 			else if (type == typeof(DateTime))  
 			{  
-				str = "\"" + str + "\"";  
+				str = StringFormat(str, "||");   
 			}  
 			else if (type == typeof(bool))  
 			{  
@@ -66,9 +66,27 @@ namespace MyTool
 			}  
 			else if (type != typeof(string) && string.IsNullOrEmpty(str))  
 			{  
-				str = "\"" + str + "\"";  
+				str = StringFormat(str, "||");    
 			}  
 			return str;  
+		}  
+		
+		/// <summary>  
+		/// 格式化字符型、日期型、布尔型  
+		/// </summary>  
+		private static string StringFormat(string str, string type)  
+		{  
+			if (type == "||")   
+			str = "\"" + str + "\"";  
+			else if (type == "||,")  
+			str = "\"" + str + "\","; 
+			else if (type == "||:")  
+			str = "\"" + str + "\":"; 
+			else if (type == "{}")  
+			str = "{" + str + "}"; 			
+			else if (type == "[]")  
+			str = "[" + str + "]";  
+			return str;			
 		}  
 		#endregion  
 		
@@ -196,19 +214,59 @@ namespace MyTool
 		}  
 		#endregion  
 		
+		#region 对象字符串转换Json  
+		/// <summary>   
+		/// 对象字符串转换Json   
+		/// </summary>   
+		/// <param name="array">对象</param>   
+		/// <returns>Json字符串</returns>   
+		public static string ToDictString(string str) {return ToDictString(str, "", "");}  
+		public static string ToDictString(string str, string sep, string div)  
+		{  
+			string __js = "{";  
+			string[] all = str.Split(' ');
+			for (int i = 0; i < all.Length; i++)
+			{
+				string[] part = all[i].Split(':');
+				__js += StringFormat(part[0], "||:") + StringFormat(part[1], "||,");
+			}
+			return __js + "}";  
+		}  
+		#endregion  
+		
+		#region 数组字符串转换Json  
+		/// <summary>   
+		/// 数组字符串转换Json   
+		/// </summary>   
+		/// <param name="array">数组</param>   
+		/// <returns>Json字符串</returns>   
+		public static string ToListString(string str) {return ToListString(str, "", "");}  
+		public static string ToListString(string str, string sep, string div)  
+		{  
+			string __js = "[";  
+			string[] all = str.Split(',');
+			for (int i = 0; i < all.Length; i++)
+			{
+				__js += "\"" + all[i] + "\",";
+			}
+			__js = __js.TrimEnd(','); 
+			return __js + "]";  
+		}  
+		#endregion 
+		
 		#region  DataSet转换为Json  
 		/// <summary>   
 		/// DataSet转换为Json   
 		/// </summary>   
 		/// <param name="__ds">DataSet对象</param>   
 		/// <returns>Json字符串</returns>   
-		public static string ToJson(DataSet __ds) {return ToJson (__ds, "", "", 1);} 
-		public static string ToJson(DataSet __ds, string sep, string div, int header)  
+		public static string ToJson(DataSet __ds) {return ToJson (__ds, "", "", true, 1);} 
+		public static string ToJson(DataSet __ds, string sep, string div, bool toArray, int header)  
 		{  
 			string __js = "{";  
 			foreach (DataTable table in __ds.Tables)  
 			{  
-				__js += "\"" + table.TableName + "\":" + ToJson(table, sep, div, header) + "," + div + div;  
+				__js += StringFormat(table.TableName, "||:") + ToJson(table, sep, div, toArray, header) + "," + div + div;  
 			}  
 			__js = __js.TrimEnd(',');  
 			return __js + "}";  
@@ -221,40 +279,53 @@ namespace MyTool
 		/// </summary>   
 		/// <param name="table">Datatable对象</param>   
 		/// <returns>Json字符串</returns>   
-		public static string ToJson(DataTable __dt) {return ToJson(__dt, "", "", 1);}
-		public static string ToJson(DataTable __dt, string sep, string div, int header)  
+		public static string ToJson(DataTable __dt) {return ToJson(__dt, "", "", true, 1);}
+		public static string ToJson(DataTable __dt, string sep, string div, bool toArray, int header)  
 		{  
 			StringBuilder __js = new StringBuilder();  
-			__js.Append("{" + div);  
+			if (toArray)
+			__js.Append("[" + div);
+				else
+			__js.Append("{" + sep);  
 			DataRowCollection __drc = __dt.Rows;  
 			for (int i = header - 1; i < __drc.Count; i++)  
 			{  	
 				if (__drc[i][0].ToString() != "") 
 				{
-					__js.Append("\"");  
-					__js.Append(__drc[i][0].ToString());  
-					__js.Append("\":{" + sep);  
-					for (int j = 1; j < __dt.Columns.Count; j++)  
+					var start = 0;
+					if (toArray) 
+					{
+						__js.Append("{" + sep);  
+					} else {
+						start = 1;
+						__js.Append("\"");  
+						__js.Append(__drc[i][0].ToString());  
+						__js.Append("\":{" + sep);  
+					}
+					
+					for (int j = start; j < __dt.Columns.Count; j++)  
 					{  
 						string strKey = __dt.Columns[j].ColumnName;  
 						string strValue = __drc[i][j].ToString();
+						string strType = __drc[0][j].ToString();
 						Type type = __dt.Columns[j].DataType;  
-						__js.Append("\"" + strKey + "\":");  
-						strValue = StringFormat(strValue, type);  
+
+						__js.Append(StringFormat(strKey, "||:")); 
+
+						if (strType.Contains("{}")) 
+						__js.Append(StringFormat(strValue, "{}"));
+						else if (strType.Contains("[]"))
+						__js.Append(StringFormat(strValue, "[]"));
+						else 
+						__js.Append(StringFormat(strValue, type));						
 						if (j < __dt.Columns.Count - 1)  
-						{  
-							__js.Append(strValue + "," + sep);  
-						}  
-						else  
-						{  
-							__js.Append(strValue);  
-						} 
+						__js.Append("," + sep);  
 					}  
-					__js.Append("}," + div);	
+					__js.Append(sep + "}," + div);  
 				}  
 			}  
 			__js.Remove(__js.Length - div.Length - 1, div.Length + 1);  
-			__js.Append(div + "}");  
+			__js.Append(div + "]");  
 			return __js.ToString();  
 		}  
 		
@@ -273,9 +344,9 @@ namespace MyTool
 				{  
 					Json.Append("{");  
 					for (int j = 0; j < __dt.Columns.Count; j++)  
-					{  
+					{  	
 						Type type = __dt.Rows[i][j].GetType();  
-						Json.Append("\"" + __dt.Columns[j].ColumnName.ToString() + "\":" + StringFormat(__dt.Rows[i][j].ToString(), type));  
+						Json.Append(StringFormat(__dt.Columns[j].ColumnName.ToString(), "||:") + StringFormat(__dt.Rows[i][j].ToString(), type));  	
 						if (j < __dt.Columns.Count - 1)  
 						{  
 							Json.Append("," + sep);  
@@ -312,7 +383,7 @@ namespace MyTool
 					Type type = dataReader.GetFieldType(i);  
 					string strKey = dataReader.GetName(i);  
 					string strValue = dataReader[i].ToString();  
-					__js.Append("\"" + strKey + "\":");  
+					__js.Append(StringFormat(strKey, "||:"));   
 					strValue = StringFormat(strValue, type);  
 					if (i < dataReader.FieldCount - 1)  
 					{  
@@ -331,7 +402,7 @@ namespace MyTool
 			return __js.ToString();  
 		}  
 		#endregion  
-				
+
 		#region DataTable转换为Csharp字段
 		/// <summary>   
 		/// DataTable转换为Csharp字段   

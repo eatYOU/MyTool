@@ -1,19 +1,25 @@
 ## Excel2Json.Config.md
 ```
 //载入的Excel路径,可添加多个
-string excelPath = E:\OneDrive\Tool\Excel2Json\test.xlsx
+string excelPath = C:\Users\ZHANGJIALIANG\OneDrive\MyTools\exe-ExcelToJson\experience.xlsx
+string excelPath = C:\Users\ZHANGJIALIANG\OneDrive\MyTools\exe-ExcelToJson\zhongxin_data.xlsx
+
 ```
 ```
 //文件保存路径，如果没有会自动创建
-string savePath = E:\OneDrive\Tool\Excel2Json\json\
+string savePath = C:\Users\ZHANGJIALIANG\OneDrive\MyTools\exe-ExcelToJson\json\
+```
+```
+//转换为数组
+bool toArray = true
 ```
 ```
 //是否{对象}内换行
-bool splitSep = true
+bool splitSep = false
 ```
 ```
 //是否[数组]内换行
-bool splitDiv = false
+bool splitDiv = true
 ```
 ```
 //是否保存JSON文件

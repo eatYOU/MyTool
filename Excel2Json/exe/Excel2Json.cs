@@ -17,6 +17,7 @@ sealed public class Excel2Json
 	private static string savePath = "";
 	private static string splitSep = "";
 	private static string splitDiv = "";
+	private static bool toArray = true;
 	private static bool saveJson = true;
 	private static bool saveSql = false;
 	private static bool saveCsharp = false;
@@ -66,6 +67,9 @@ sealed public class Excel2Json
 			case "bool" + "splitSep" :
 				splitSep = isTrue ? "\n" : "";
 				splitDiv = isTrue ? splitSep : splitDiv;
+				break;
+			case "bool" + "toArray" :
+				toArray = isTrue;
 				break;
 			case "bool" + "saveJson" :
 				saveJson = isTrue;
@@ -152,7 +156,7 @@ sealed public class Excel2Json
 			
 			//-- 导出JSON文件
 			if (saveJson) {
-				string json = MyTool.MyConvert.ToJson(__dt, splitSep, splitDiv, headLine);
+				string json = MyTool.MyConvert.ToJson(__dt, splitSep, splitDiv, toArray, headLine);
 				SaveToFile(json, fileName, ".json");
 			}
 			
