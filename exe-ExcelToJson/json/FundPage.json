@@ -1,7 +1,0 @@
-﻿[
-{"idx":1,"title":"我的借贷","vice[0]":"G.代理本金\/A.借入上限 =","vice[1]":"G.托管本金\/D.借出上限 =","mode":"G","deep":"#936","normal":"#C69","light":"#F9C"},
-{"idx":2,"title":"我的本金","vice[0]":"J.可以提现\/H.充值本金 =","vice[1]":"J.可以提现\/H.充值本金 =","mode":"G","deep":"#963","normal":"#C96","light":"#FC9"},
-{"idx":3,"title":"我的资金","vice[0]":"I.已投资金\/Z.可用本金 =","vice[1]":"I.已投资金\/Z.可用本金 =","mode":"G","deep":"#369","normal":"#69C","light":"#9CF"},
-{"idx":4,"title":"我的收益","vice[0]":"U.实际收益\/R.投入收益 =","vice[1]":"R.投入收益\/U.实际收益 =","mode":"T","deep":"#639","normal":"#96C","light":"#C9F"},
-{"idx":5,"title":"我的利息","vice[0]":"T.负利利息\/G.代理本金 =","vice[1]":"T.正利利息\/G.托管本金 =","mode":"T","deep":"#693","normal":"#9C6","light":"#CF9"}
-]
