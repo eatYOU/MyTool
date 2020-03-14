@@ -1,0 +1,10 @@
+﻿[
+{"name":"confirm","type":"box","color":"green","text":"确定"},
+{"name":"cancel","type":"box","color":"red","text":"取消"},
+{"name":"debug","type":"box","color":"indigo","text":"开发者模式"},
+{"name":"items","type":"msg","color":"gray","text":"ALERT(items)"},
+{"name":"config","type":"msg","color":"gray","text":"ALERT(config)"},
+{"name":"values","type":"msg","color":"gray","text":"ALERT(values)"},
+{"name":"save","type":"msg","color":"darkgreen","text":"ALERT(save)"},
+{"name":"clear","type":"msg","color":"darkred","text":"ALERT(clear)"}
+]

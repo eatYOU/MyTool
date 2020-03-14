@@ -1,0 +1,11 @@
+﻿[
+{"idx":"①","title":"一、我关注的","main":true,"deep":"#936","normal":"#C69","light":"#F9C","nexu":"已关注","vice":"企业公司|产品服务|商户店铺","btype":"primary","button[0]":0,"button[1]":6,"button[2]":7,"button[3]":0},
+{"idx":"②","title":"二、我抢夺的","main":true,"deep":"#963","normal":"#C96","light":"#FC9","nexu":"已强制关注","vice":"企业公司|产品服务|商户店铺","btype":"primary","button[0]":0,"button[1]":3,"button[2]":7,"button[3]":""},
+{"idx":"③","title":"三、我关注的","main":true,"deep":"#369","normal":"#69C","light":"#9CF","nexu":"已关注","vice":"用户|淘金者|投资者","btype":"primary","button[0]":0,"button[1]":6,"button[2]":"","button[3]":""},
+{"idx":"④","title":"四、我抢夺的","main":true,"deep":"#639","normal":"#96C","light":"#C9F","nexu":"待设置关系","vice":"用户|淘金者|投资者","btype":"default","button[0]":0,"button[1]":3,"button[2]":4,"button[3]":5},
+{"idx":"⑤","title":"五、关注我的","main":true,"deep":"#693","normal":"#9C6","light":"#CF9","nexu":"待设置关系","vice":"用户|淘金者|投资者","btype":"default","button[0]":0,"button[1]":3,"button[2]":4,"button[3]":5},
+{"idx":"⑥","title":"六、抢夺我的","main":true,"deep":"#396","normal":"#6C9","light":"#9FC","nexu":"待设置关系","vice":"用户|淘金者|投资者","btype":"default","button[0]":0,"button[1]":3,"button[2]":4,"button[3]":5},
+{"idx":"⑦","title":"七、我屏蔽的","main":false,"deep":"#AAA","normal":"#CCC","light":"#EEE","nexu":"已屏蔽","vice":"企业公司|产品服务|商户店铺\n用户|淘金者|投资者","btype":"warn","button[0]":1,"button[1]":5,"button[2]":"","button[3]":""},
+{"idx":"⑧","title":"八、我拉黑的","main":false,"deep":"#888","normal":"#AAA","light":"#CCC","nexu":"已拉黑","vice":"用户|淘金者|投资者","btype":"warn","button[0]":2,"button[1]":"","button[2]":"","button[3]":""},
+{"idx":"⑨","title":"九、无关系的","main":false,"deep":"#666","normal":"#888","light":"#AAA","nexu":"待设置关系","vice":"企业公司|产品服务|商户店铺\n用户|淘金者|投资者","btype":"default","button[0]":0,"button[1]":3,"button[2]":4,"button[3]":5}
+]

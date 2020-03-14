@@ -1,0 +1,17 @@
+﻿[
+{"idx":101,"text":"借入","title":"借入本金","key":"B\/X","tran":1.00/0.01,"limit":"C","bgcolor":"green"},
+{"idx":102,"text":"借出","title":"借出本金","key":"E\/Y","tran":1.00/0.01,"limit":"F","bgcolor":"red"},
+{"idx":103,"text":"查看记录","title":"借贷记录","key":"","tran":"","limit":"","bgcolor":""},
+{"idx":201,"text":"充值","title":"本金充值","key":"H","tran":1,"limit":"h","bgcolor":"green"},
+{"idx":202,"text":"提现","title":"本金提现","key":"H","tran":-1,"limit":"J","bgcolor":"red"},
+{"idx":203,"text":"查看记录","title":"本金记录","key":"","tran":"","limit":"","bgcolor":""},
+{"idx":301,"text":"投入","title":"投入资金","key":"L\/O","tran":1.00/1.00,"limit":"K","bgcolor":"green"},
+{"idx":302,"text":"抢夺","title":"抢夺资金","key":"M\/P","tran":1.00/1.00,"limit":"N","bgcolor":"red"},
+{"idx":303,"text":"查看记录","title":"资金记录","key":"","tran":"","limit":"","bgcolor":""},
+{"idx":401,"text":"获取","title":"收益获取","key":"R","tran":1,"limit":"S","bgcolor":"green"},
+{"idx":402,"text":"提现","title":"收益提现","key":"V","tran":1,"limit":"W","bgcolor":"red"},
+{"idx":403,"text":"查看记录","title":"收益记录","key":"","tran":"","limit":"","bgcolor":""},
+{"idx":501,"text":"还款","title":"偿还借款","key":"B","tran":-1,"limit":"B","bgcolor":"green"},
+{"idx":502,"text":"收款","title":"收回借款","key":"E","tran":-1,"limit":"E","bgcolor":"red"},
+{"idx":503,"text":"查看记录","title":"利息记录","key":"","tran":"","limit":"","bgcolor":""}
+]
