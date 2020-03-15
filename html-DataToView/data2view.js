@@ -52,12 +52,13 @@ function dataListToView(dataList, dataType) {
 }
 
 
-function toText(text) {
-	return text.toString().replace(/</g, "|").replace(/>/g, "|");
-}
 
-
-function jsonToView(data, title, viewType) {
+function jsonToView(json, title, viewType) {
+	var data = [];
+	if (json instanceof Array)
+		data = json;
+	else
+		data.push(json);
 	if (viewType == 'data')
 		dataToView(JSON.stringify(data), title);
 	else if (viewType == 'table')
@@ -71,34 +72,38 @@ function jsonToView(data, title, viewType) {
 }
 
 function jsonToTable(data, title) {
-	var str = JSON.stringify(data);
-	str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
-	str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
-	str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
-	str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
-	str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
-	dataToView(str, title);
-	return str;
+	var val = "";
+	for (let x in data) {
+		if (data[x] instanceof Object) {
+			val += "</tr><tr>";
+			for (let y in data[x]) {
+				var str = JSON.stringify(data[x][y]);
+				str = toMatch(str, title);
+				val += "<td><h3>" + y + "</h3>" + str + "</td>";
+			}
+		} else{
+			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
+		}
+	}
+	dataToView(val, title);
 }
 
 
 function jsonToLine(data, title) {
 	var val = "";
 	for (let x in data) {
-		var str = JSON.stringify(data[x]);
-		str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
-		str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
-		str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
-		str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
-		str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
 		val += addTitle(title, x, data instanceof Array);
-		if (data[x] instanceof Object)
-			val += str;
-		else
-			val += "<tr><td colspan='100' >" + str + "</td></tr>";
+		if (data[x] instanceof Object) {
+			for (let y in data[x]) {
+				var str = JSON.stringify(data[x][y]);
+				str = toMatch(str, title);
+				val += "<td><h3>" + y + "</h3>" + str + "</td>";
+			}
+		} else{
+			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
+		}
 	}
 	dataToView(val, title);
-	return val;
 }
 
 
@@ -109,21 +114,14 @@ function jsonToValue(data, title) {
 		if (data[x] instanceof Object) {
 			for (let y in data[x]) {
 				var str = JSON.stringify(data[x][y]);
-				str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
-				str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
-				str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
-				str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
-				str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+				str = toMatch(str, title);
 				val += "<tr><th>" + y + "</th><td>" + str + "</td></tr>";
-				if (!data[y] instanceof Object)
-					val += "<tr><td colspan='100' >" + str + "</td></tr>";
 			}
 		} else{
 			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
 		}
 	}
 	dataToView(val, title);
-	return val;
 }
 
 
@@ -134,21 +132,14 @@ function jsonToList(data, title) {
 		if (data[x] instanceof Object) {
 			for (let y in data[x]) {
 				var str = JSON.stringify(data[x][y]);
-				str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
-				str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
-				str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
-				str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
-				str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+				str = toMatch(str, title);
 				val += "<tr><th>" + y + "</th></tr><tr><td>" + str + "</td></tr>";
-				if (!data[y] instanceof Object)
-					val += "<tr><td colspan='100' >" + str + "</td></tr>";
 			}
 		} else{
 			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
 		}
 	}
 	dataToView(val, title);
-	return val;
 }
 
 
@@ -159,6 +150,23 @@ function addTitle(title, x, isArr) {
 	else
 		val += "." + x + "</td></tr>";
 	return val;
+}
+
+
+function toText(text) {
+	text = text.toString().replace(/</g, "|").replace(/>/g, "|");
+	return text.replace(/\n/g, '<br/>').replace(/\t/g, '    ').replace(/\r/g, '');
+}
+
+function toMatch(str, title) {
+	if (title == "ViewFunction")
+		return str;
+	str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+	str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+	str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+	str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+	str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+	return str;
 }
 
 function csvToView(data, title, viewType) {

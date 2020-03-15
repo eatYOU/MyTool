@@ -2,11 +2,8 @@
 <head>
 	<meta charset="utf-8">
 	<script src="data2view.js"> </script>
-	<script src="data/equipData.js"></script>
 	<script src="data/csvData.js"></script>
-	<script src="data/treeData.js"></script>
 	<script src="data/jsonData.js"></script>
-	<script src="data/expData.js"></script>
 	<script type="text/javascript">
 		window.onload = function() {
 			dataListToView(csvList, "csv");
@@ -24,15 +21,17 @@
 		var csvList = [
 			{data: null, title: 'CSV DATA'},
 			{data: equip, title: 'EquipData'},
-			{data: date, title: 'DateData'},
 			{data: inve, title: 'InveData'},
 		];
 
 		var jsonList = [
 			{data: null, title: 'JSON DATA'},
+			// {data: viewConfig, title: 'ViewFunction'},
+			{data: fundData, title: 'FundData'},
+			{data: nexuData, title: 'NexuData'},
 			{data: logoData, title: 'LogoData'},
 			{data: logoConfig, title: 'LogoConfig'},
-			{data: viewConfig, title: 'ViewConfig'},
+			{data: inveConfig, title: 'InveConfig'},
 		];
 
 		var Elem = {
@@ -135,6 +134,7 @@
 		td {
 			text-align: center;
 			padding: 3px 10px;
+			min-width: 30px;
 			text-align: center;
 			vertical-align: middle;
 			border: solid 1.5px #888;
@@ -143,7 +143,7 @@
 		h3 {
 			margin: 0px;
 			padding: 0px;
-			color: darkred;
+			color: dodgerblue;
 			font-size: 1em;
 		}
 
