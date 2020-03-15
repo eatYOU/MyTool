@@ -20,7 +20,7 @@ function dataListToView(dataList, dataType) {
 				btn.innerHTML = viewConfig[j].viewType;
 			}
 			if (dataList[i].data == null) break;
-			btn.idx = i;
+			btn.x = i;
 			btn.color = viewConfig[j].color;
 			btn.bgcolor = viewConfig[j].bgcolor;
 			Elem.color(btn, btn.color, btn.bgcolor);
@@ -32,7 +32,7 @@ function dataListToView(dataList, dataType) {
 				Elem.color(this, this.bgcolor, this.color);
 				Elem.btn = this;
 				Elem.viewWidth = 100;
-				var that = dataList[this.idx];
+				var that = dataList[this.x];
 				if (that.width && this.viewType == "table" || this.viewType == "line")
 					Elem.viewWidth = that.width;
 				var view = Elem.get('view_' + that.title);
@@ -58,151 +58,112 @@ function toText(text) {
 
 
 function jsonToView(data, title, viewType) {
-	if (data instanceof Object) {
-		if (viewType == 'data') {
-			dataToView(JSON.stringify(data), title, 'div');
-			return;
-		}
-		tb = '<table>';
-		for (let idx in data) {
-			if (data instanceof Array) {
-				if (viewType != 'table')
-					tk += addTH(title, idx, true);
-				if (viewType == 'table')
-					jsonToTable(data[idx], idx, null, idx);
-				else if (viewType == 'line')
-					jsonToLine(data[idx], idx, null, idx);
-				else if (viewType == 'list')
-					jsonToList(data[idx], idx, null, idx);
-				else if (viewType == 'k&v')
-					jsonToValue(data[idx], idx, null, idx);
-			} else {
-				jsonToList(data[idx], idx, null, idx);
-			}
-		}
-		tb += '<tr></tr>';
-		tb += '</table>';
-		dataToView(tb, title, 'table');
-	}
+	if (viewType == 'data')
+		dataToView(JSON.stringify(data), title);
+	else if (viewType == 'table')
+		jsonToTable(data, title);
+	else if (viewType == 'line')
+		jsonToLine(data, title);
+	else if (viewType == 'list')
+		jsonToList(data, title);
+	else if (viewType == 'k&v')
+		jsonToValue(data, title);
 }
 
-function jsonToTable(data, index, parent, org) {
-	// if (data instanceof Array) {
-	// 	for(let idx in data)
-	// 		jsonToTable(data[idx], idx, "[" + index + "]", org);
-	// } else 
-
-	if (data instanceof Object) {
-		for(let idx in data) 
-			jsonToTable(data[idx], idx, index, org);
-		if (parent == null)
-			addTB(true);
-	} else {
-		if (org == 0) 
-			addTK(index, parent, true);
-		addTV(data, false);
-	}
+function jsonToTable(data, title) {
+	var str = JSON.stringify(data);
+	str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+	str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+	str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+	str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+	str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+	dataToView(str, title);
+	return str;
 }
 
 
-function jsonToLine(data, index, parent, org) {
-	// if (data instanceof Array) {
-	// 	for(let idx in data)
-	// 		jsonToTable(data[idx], idx, "[" + index + "]", org);
-	// } else 
-
-	if (data instanceof Object) {
-		for(let idx in data) 
-			jsonToTable(data[idx], idx, index, org);
-		if (parent == null)
-			addTB(true);
-	} else {
-		addTK(index, parent, true);
-		addTV(data, false);
-	}
-}
-
-
-function jsonToValue(data, index, parent, org) {
-	if (data instanceof Object) {
-		if (data instanceof Array) {
-			jsonToValue(data.join('<br/>'), null, index, org);
-		} else {
-			for(let idx in data)
-				jsonToValue(data[idx], idx, index, org);
-		}
-	} else {
-		addTK(index, parent, true);
-		addTV(data, false);
-	}
-	addTB(false);
-}
-
-
-function jsonToList(data, index, parent, org) {
-	if (data instanceof Object) {
-		if (data instanceof Array) {
-			jsonToList(data.join('<br/>'), null, index, org);
-		} else {
-			for(let idx in data) 
-				jsonToList(data[idx], idx, index, org);
-		}
-	} else {
-		addTK(index, parent, true);
-		addTV(data, false);
-	}
-	addTB(true);
-}
-
-
-function addTK(index, parent, ispare) {
-	tk += "<th>";
-	if (ispare && parseInt(index)+5)
-		tk += "" + parent + "[" + index + "]";
-	else if (index == null)
-		tk += "" + parent + "[]";
-	else
-		tk += index;
-	tk += "</th>";
-}
-
-function addTV(data, isjoin) {
-	tv += "<td>";
-	if (isjoin == null)
-		tv += data.join("<br/>");
-	else if (isjoin)
-		tv += data.join("</td></tr><tr><td>");
-	else
-		tv += data.toString();
-	tv += "</td>";
-}
-
-function addTB(isbreak) {
-	if (isbreak) {
-		if (tk)
-			tb += "<tr>" + tk + "</tr>";
-		if (tv)
-			tb += "<tr>" + tv + "</tr>";
-	} else {
-		if (tk || tv)
-			tb += "<tr>" + tk + tv + "</tr>";
-	}
-	tk = "";
-	tv = "";
-}
-
-function addTH(title, idx, ishead) {
+function jsonToLine(data, title) {
 	var val = "";
-	if (ishead) {
-		val += "<tr><td colspan='3' class='td-title'>" + title;
-		val += "[" + idx + "]" + "</td></tr>";
+	for (let x in data) {
+		var str = JSON.stringify(data[x]);
+		str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+		str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+		str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+		str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+		str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+		val += addTitle(title, x, data instanceof Array);
+		if (data[x] instanceof Object)
+			val += str;
+		else
+			val += "<tr><td colspan='100' >" + str + "</td></tr>";
 	}
+	dataToView(val, title);
+	return val;
+}
+
+
+function jsonToValue(data, title) {
+	var val = "";
+	for (let x in data) {
+		val += addTitle(title, x, data instanceof Array);
+		if (data[x] instanceof Object) {
+			for (let y in data[x]) {
+				var str = JSON.stringify(data[x][y]);
+				str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+				str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+				str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+				str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+				str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+				val += "<tr><th>" + y + "</th><td>" + str + "</td></tr>";
+				if (!data[y] instanceof Object)
+					val += "<tr><td colspan='100' >" + str + "</td></tr>";
+			}
+		} else{
+			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
+		}
+	}
+	dataToView(val, title);
+	return val;
+}
+
+
+function jsonToList(data, title) {
+	var val = "";
+	for (let x in data) {
+		val += addTitle(title, x, data instanceof Array);
+		if (data[x] instanceof Object) {
+			for (let y in data[x]) {
+				var str = JSON.stringify(data[x][y]);
+				str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+				str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+				str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+				str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+				str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+				val += "<tr><th>" + y + "</th></tr><tr><td>" + str + "</td></tr>";
+				if (!data[y] instanceof Object)
+					val += "<tr><td colspan='100' >" + str + "</td></tr>";
+			}
+		} else{
+			val += "<tr><td colspan='100' >" + data[x] + "</td></tr>";
+		}
+	}
+	dataToView(val, title);
+	return val;
+}
+
+
+function addTitle(title, x, isArr) {
+	var val = "<tr><td colspan='3' class='td-title'>" + title;
+	if (isArr)
+		val += "[" + x + "]" + "</td></tr>";
+	else
+		val += "." + x + "</td></tr>";
 	return val;
 }
 
 function csvToView(data, title, viewType) {
 	if (viewType == 'data')
-		dataToView(data, title, 'div');
+		dataToView(data, title);
 	else if (viewType == 'table')
 		csvToTable(data, title);
 	else if (viewType == 'k&v')
@@ -215,17 +176,14 @@ function csvToView(data, title, viewType) {
 
 function arrToTable(data, title) {
 	data = data.substring(1, data.length-1);
-	data = data.replace('#,\n', '</th></tr><tr><th>');
 	data = data.replace(/,\n/g, '</td></tr><tr><th>');
-	data = data.replace(/#,/g, '</th><th>');
-	data = data.replace(/@,/g, '</th><td>');
 	data = data.replace(/,/g, '</td><td>');
 	var val = '<table>';
 	val +='<tr><th></th><th>';
 	val += data;
 	val += '</td></tr><tr></tr>';
 	val += '</table>';
-	dataToView(val, title, 'table');
+	dataToView(val, title);
 };
 
 function csvSplit(data) {
@@ -249,7 +207,7 @@ function csvToTable(data, title) {
 	}
 	val += '<tr></tr>';
 	val += '</table>';
-	dataToView(val, title, 'table');
+	dataToView(val, title);
 };
 
 
@@ -260,7 +218,7 @@ function csvToLine(data, title) {
 	for (let i in values) {
 
 		val += '<tr></tr>';
-		val += addTH(title, i, true);
+		val += addTitle(title, i, true);
 		val += '<tr><th>';
 		val += split[0].replace(/,/g, '</th><th>');
 		val += '</th></tr>';
@@ -270,7 +228,7 @@ function csvToLine(data, title) {
 	}
 	val += '<tr></tr>';
 	val += '</table>';
-	dataToView(val, title, 'table');
+	dataToView(val, title);
 };
 
 
@@ -281,7 +239,7 @@ function csvToValue(data, title) {
 	var val = '<table>';
 	for (let i in valuesList) {
 		val += '<tr></tr>';
-		val += addTH(title, i, true);
+		val += addTitle(title, i, true);
 		for (let j in keyList) {
 			key = keyList[j];
 			value = valuesList[i].split(',')[j];
@@ -291,7 +249,7 @@ function csvToValue(data, title) {
 	}
 	val += '</td></tr><tr></tr>';
 	val += '</table>';
-	dataToView(val, title, 'table');
+	dataToView(val, title);
 };
 
 
@@ -302,7 +260,7 @@ function csvToList(data, title) {
 	var val = '<table>';
 	for (let i in valuesList) {
 		val += '<tr></tr>';
-		val += addTH(title, i, true);
+		val += addTitle(title, i, true);
 		for (let j in keyList) {
 			key = keyList[j];
 			value = valuesList[i].split(',')[j];
@@ -312,13 +270,12 @@ function csvToList(data, title) {
 	}
 	val += '</td></tr><tr></tr>';
 	val += '</table>';
-	dataToView(val, title, 'table');
+	dataToView(val, title);
 };
 
 
 function dataToView(val, title, type) {
 	var bg = Elem.get('bg_' + title);
-	var view = Elem.set(type, bg, 'view', title);
-	Elem.align(view, 'left', 99.8);
+	var view = Elem.set("table", bg, 'view', title);
 	view.innerHTML = val;
 }

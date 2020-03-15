@@ -9,16 +9,8 @@
 	<script src="data/expData.js"></script>
 	<script type="text/javascript">
 		window.onload = function() {
-			window.onresize();
 			dataListToView(csvList, "csv");
 			dataListToView(jsonList, "json");
-		}
-
-		window.onresize = function() {
-			if (window.innerWidth > window.innerHeight)
-				Elem.get('outer').style.width = '100%';
-			else
-				Elem.get('outer').style.width = '200%';
 		}
 
 		var viewConfig = [
@@ -38,8 +30,8 @@
 
 		var jsonList = [
 			{data: null, title: 'JSON DATA'},
-			{data: macData, title: 'MacData'},
-			{data: cellData, title: 'CellData'},
+			{data: logoData, title: 'LogoData'},
+			{data: logoConfig, title: 'LogoConfig'},
 			{data: viewConfig, title: 'ViewConfig'},
 		];
 
@@ -82,72 +74,77 @@
 			font-family: "Consolas", "Trebuchet MS", Verdana;
 			margin: 0px;
 			padding: 0px;
-			font-size: 10px;
 			font-weight: bold;
-		}
-
-		#outer {
-			width: 100%;
 		}
 
 		.bg {
 			overflow: auto;
-			max-width: 200%;
+ 
 		}
 
 		.flex {
 			display: flex;
 			color: red;
-			font-size: 2.5em;
+			font-size: 1.5em;
 		}
 
 		.btnData {
 			text-align: left;
 			flex: 100;
-			margin: 2px;
+			margin: 1px;
 			padding: 10px;
 		}
 
 		.btnView {
 			text-align: center;
 			flex: 30;
-			margin: 2px;
+			margin: 1px;
 			padding: 10px;
 		}
 
 		.view {
 			padding: 10px;
-			font-size: 2em;
-			max-height: auto;
-			max-width: 900%;
+			font-size: 1em;
+			margin-left: auto;
+			margin-right: auto; 
 		}
 
 		table {
-			width: 100%;
-			font-size: 2em;
+			margin: 5px;
+			font-size: 1em;
 			font-weight: bold;
 			border-spacing: 0;
 			border-collapse: collapse; 
 			background-color:#fff;
+			justify-content: center;
 		}
 
 		tr {
-			height:1.5em;
+			height:1.2em;
 		}
 
 		th {
 			text-align: center;
 			color: darkred;
-			padding: 5px;
+			padding: 3px 20px;
 			min-width: 50px;
-			border: solid 2px #888;
 			background-color: #eee;
+			border: solid 1.5px #888;
 		}
 
 		td {
 			text-align: center;
-			padding: 5px;
-			border: solid 2px #888;
+			padding: 3px 10px;
+			text-align: center;
+			vertical-align: middle;
+			border: solid 1.5px #888;
+		}
+
+		h3 {
+			margin: 0px;
+			padding: 0px;
+			color: darkred;
+			font-size: 1em;
 		}
 
 		.td-title {
