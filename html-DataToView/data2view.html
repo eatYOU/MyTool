@@ -1,73 +1,9 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<script src="data2view.js"> </script>
+	<script src="setting.js"> </script>
 	<script src="data/csvData.js"></script>
 	<script src="data/jsonData.js"></script>
-	<script type="text/javascript">
-		window.onload = function() {
-			dataListToView(csvList, "csv");
-			dataListToView(jsonList, "json");
-		}
-
-		var viewConfig = [
-			{viewType:"data", color:"#846", bgcolor:"#eac", jsonFunc: toText(jsonToView), csvFunc: toText(csvToView)},
-			{viewType:"table", color:"#864", bgcolor:"#eca", jsonFunc: toText(jsonToTable), csvFunc: toText(csvToTable)},
-			{viewType:"line", color:"#468", bgcolor:"#ace", jsonFunc: toText(jsonToLine), csvFunc: toText(csvToLine)},
-			{viewType:"k&v", color:"#648", bgcolor:"#cae", jsonFunc: toText(jsonToValue), csvFunc: toText(csvToValue)},
-			{viewType:"list", color:"#684", bgcolor:"#cea", jsonFunc: toText(jsonToList), csvFunc: toText(csvToList)},
-		];
-
-		var csvList = [
-			{data: null, title: 'CSV DATA'},
-			{data: equip, title: 'EquipData'},
-			{data: inve, title: 'InveData'},
-		];
-
-		var jsonList = [
-			{data: null, title: 'JSON DATA'},
-			// {data: viewConfig, title: 'ViewFunction'},
-			{data: fundData, title: 'FundData'},
-			{data: nexuData, title: 'NexuData'},
-			{data: logoData, title: 'LogoData'},
-			{data: logoConfig, title: 'LogoConfig'},
-			{data: inveConfig, title: 'InveConfig'},
-		];
-
-		var Elem = {
-			get: function (name) {
-				return document.getElementById(name);
-			},
-			set: function (type, parent, className, idx) {
-				var item = document.createElement(type);
-				if (className)
-					item.className = className;
-				if (parent)
-					parent.appendChild(item);
-				if (idx && className)
-					item.id = className + "_" + idx;
-				return item;
-			},
-			color: function(elem, color, bgcolor) {
-				if (elem) {
-					elem.style.color = color;
-					elem.style.backgroundColor = bgcolor;
-				}
-			},
-			align: function(elem, align, width) {
-			    if (elem) {
-			        elem.style.textAlign = align;
-			        elem.style.width = width + "%";
-			    }
-			},
-			remove: function (elem) {
-			    if(elem)
-			        elem.parentNode.removeChild(elem);
-			    return !!elem;
-			}
-		}
-	</script>
-
 	<style type="text/css"> 
 		body {
 			font-family: "Consolas", "Trebuchet MS", Verdana;
@@ -84,21 +20,21 @@
 		.flex {
 			display: flex;
 			color: red;
-			font-size: 1.5em;
+			font-size: 1.3em;
 		}
 
 		.btnData {
 			text-align: left;
 			flex: 100;
 			margin: 1px;
-			padding: 10px;
+			padding: 8px;
 		}
 
 		.btnView {
 			text-align: center;
 			flex: 30;
 			margin: 1px;
-			padding: 10px;
+			padding: 8px;
 		}
 
 		.view {
@@ -110,6 +46,8 @@
 
 		table {
 			margin: 5px;
+			margin-left: auto;
+			margin-right: auto; 
 			font-size: 1em;
 			font-weight: bold;
 			border-spacing: 0;

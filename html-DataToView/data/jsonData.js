@@ -1,14 +1,6 @@
 
-var logoData = [
-{text:'鑫', textPos:[[ 1,-0.33],[ 1,-0.33],[0,-0.66]], pos:[[0,0], [ 2, 0], [ 1, 1]], rotate:[0,  0,  60], fillStyle:'#FFC000'},
-{text:'聚', textPos:[[ 0,-0.66],[ 0,-0.66],[0,-0.66]], pos:[[0,0], [ 1, 1], [-1, 1]], rotate:[0,  0, 300], fillStyle:'#0070C0'},
-{text:'众', textPos:[[-1,-0.33],[-1,-0.33],[0,-0.66]], pos:[[0,0], [-1, 1], [-2, 0]], rotate:[0,  0, 300], fillStyle:'#FF0000'},
-{text:'众', textPos:[[-1, 0.33],[ 1,-0.33],[0,-0.66]], pos:[[0,0], [-2, 0], [-1,-1]], rotate:[0,180, 300], fillStyle:'#FF0000'},
-{text:'合', textPos:[[ 0, 0.66],[ 0,-0.66],[0,-0.66]], pos:[[0,0], [-1,-1], [ 1,-1]], rotate:[0,  0, 300], fillStyle:'#0070C0'},
-{text:'鑫', textPos:[[ 1, 0.33],[-1,-0.33],[0,-0.66]], pos:[[0,0], [ 1,-1], [ 2, 0]], rotate:[0,  0, 300], fillStyle:'#FFC000'},
-];
 
-var fundData = [{
+var fundValue = [{
 H: 13000,
 I: 7720,
 J: 5280,
@@ -28,7 +20,7 @@ h: 50000,
 }];
 
 
-var nexuData = [
+var nexuItem = [
 {title: '消息', 
 list: [
 {title: '', vice:'', buttonIdx: [0,3],
@@ -96,7 +88,17 @@ lines: [
 
 ];
 
-var logoConfig = {
+
+var logoText = [
+{text:'鑫', textPos:[[ 1,-0.33],[ 1,-0.33],[0,-0.66]], pos:[[0,0], [ 2, 0], [ 1, 1]], rotate:[0,  0,  60], fillStyle:'#FFC000'},
+{text:'聚', textPos:[[ 0,-0.66],[ 0,-0.66],[0,-0.66]], pos:[[0,0], [ 1, 1], [-1, 1]], rotate:[0,  0, 300], fillStyle:'#0070C0'},
+{text:'众', textPos:[[-1,-0.33],[-1,-0.33],[0,-0.66]], pos:[[0,0], [-1, 1], [-2, 0]], rotate:[0,  0, 300], fillStyle:'#FF0000'},
+{text:'众', textPos:[[-1, 0.33],[ 1,-0.33],[0,-0.66]], pos:[[0,0], [-2, 0], [-1,-1]], rotate:[0,180, 300], fillStyle:'#FF0000'},
+{text:'合', textPos:[[ 0, 0.66],[ 0,-0.66],[0,-0.66]], pos:[[0,0], [-1,-1], [ 1,-1]], rotate:[0,  0, 300], fillStyle:'#0070C0'},
+{text:'鑫', textPos:[[ 1, 0.33],[-1,-0.33],[0,-0.66]], pos:[[0,0], [ 1,-1], [ 2, 0]], rotate:[0,  0, 300], fillStyle:'#FFC000'},
+];
+
+var logoImage = {
 	multiX: 1,
 	multiY: 1,
 	width: 440,
@@ -122,43 +124,43 @@ var logoConfig = {
 		{color:'cyan',		tranX:72, tranY:-29, rotate:0.16},
 		{color:'blue',		tranX:72, tranY:-29, rotate:0.16},
 		{color:'purple',	tranX:72, tranY:-29, rotate:0.16},
-		]}
-		],
+		]
+	}],
 
-		style2: [{
-			drawTran: [-192, 100],
-			drawRote: -0.48,
-			paintTran: [-308, 50],
-			paintRote: -0.64,
-			lines:[
-			{color:'red',		tranX:75, tranY:  1, rotate:0.16},
-			{color:'orange',	tranX:75, tranY:-59, rotate:0.16},
-			{color:'yellow',	tranX:75, tranY:  1, rotate:0.16},
-			{color:'green',		tranX:75, tranY:-59, rotate:0.16},
-			{color:'cyan',		tranX:75, tranY:  1, rotate:0.16},
-			{color:'blue',		tranX:75, tranY:-59, rotate:0.16},
-			{color:'purple',	tranX:75, tranY:  1, rotate:0.16},
-			]}
-			],
+	style2: [{
+		drawTran: [-192, 100],
+		drawRote: -0.48,
+		paintTran: [-308, 50],
+		paintRote: -0.64,
+		lines:[
+		{color:'red',		tranX:75, tranY:  1, rotate:0.16},
+		{color:'orange',	tranX:75, tranY:-59, rotate:0.16},
+		{color:'yellow',	tranX:75, tranY:  1, rotate:0.16},
+		{color:'green',		tranX:75, tranY:-59, rotate:0.16},
+		{color:'cyan',		tranX:75, tranY:  1, rotate:0.16},
+		{color:'blue',		tranX:75, tranY:-59, rotate:0.16},
+		{color:'purple',	tranX:75, tranY:  1, rotate:0.16},
+		]
+	}],
 
-			style3: [{
-				drawTran: [-150,-140],
-				drawRote: 0,
-				paintTran: [-200, 100],
-				paintRote: 0,
-				lines:[
-				{color:'red',		tranX:50, tranY:-20, rotate:0},
-				{color:'orange',	tranX:50, tranY:-20, rotate:0},
-				{color:'yellow',	tranX:50, tranY:-20, rotate:0},
-				{color:'green',		tranX:50, tranY: 20, rotate:0},
-				{color:'cyan',		tranX:50, tranY: 20, rotate:0},
-				{color:'blue',		tranX:50, tranY: 20, rotate:0},
-				{color:'purple',	tranX:50, tranY: 20, rotate:0},
-				]}
-				],
-			};
+	style3: [{
+		drawTran: [-150,-140],
+		drawRote: 0,
+		paintTran: [-200, 100],
+		paintRote: 0,
+		lines:[
+		{color:'red',		tranX:50, tranY:-20, rotate:0},
+		{color:'orange',	tranX:50, tranY:-20, rotate:0},
+		{color:'yellow',	tranX:50, tranY:-20, rotate:0},
+		{color:'green',		tranX:50, tranY: 20, rotate:0},
+		{color:'cyan',		tranX:50, tranY: 20, rotate:0},
+		{color:'blue',		tranX:50, tranY: 20, rotate:0},
+		{color:'purple',	tranX:50, tranY: 20, rotate:0},
+		]
+	}],
+};
 
-var inveConfig = [
+var inveLadd = [
 {"ladd":1,"multi":1,"priceAllList":[1],"pieceAllList":[1],"timesAllList":[1],"priceAll":1,"pieceAll":1,"timesAll":1,"laddStr":"阶梯<br/><h3>1阶</h3>","pieceStr":"总份数<br/><h3>1份</h3>","priceStr":"总金额<br/><h3>1元</h3>","timesStr":"可传播<br/><h3>1次</h3>","pieceEach":"1.00元/份","timesEach":"1.00元/次","row":0},
 {"ladd":2,"multi":1,"priceAllList":[1,2],"pieceAllList":[2,1],"timesAllList":[2,1],"priceAll":4,"pieceAll":3,"timesAll":3,"laddStr":"阶梯<br/><h3>2阶</h3>","pieceStr":"总份数<br/><h3>3份</h3>","priceStr":"总金额<br/><h3>4元</h3>","timesStr":"可传播<br/><h3>3次</h3>","pieceEach":"1.33元/份","timesEach":"1.33元/次","row":0},
 {"ladd":3,"multi":1,"priceAllList":[1,2,4],"pieceAllList":[4,2,1],"timesAllList":[4,2,1],"priceAll":12,"pieceAll":7,"timesAll":7,"laddStr":"阶梯<br/><h3>3阶</h3>","pieceStr":"总份数<br/><h3>7份</h3>","priceStr":"总金额<br/><h3>12元</h3>","timesStr":"可传播<br/><h3>7次</h3>","pieceEach":"1.71元/份","timesEach":"1.71元/次","row":0},
@@ -185,5 +187,207 @@ var inveConfig = [
 {"ladd":24,"multi":1,"priceAllList":[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576,2097152,4194304,8388608],"pieceAllList":[8388608,4194304,2097152,1048576,524288,262144,131072,65536,32768,16384,8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1],"timesAllList":[8388608,4194304,2097152,1048576,524288,262144,131072,65536,32768,16384,8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1],"priceAll":201326592,"pieceAll":16777215,"timesAll":16777215,"laddStr":"阶梯<br/><h3>24阶</h3>","pieceStr":"总份数<br/><h3>1678万份</h3>","priceStr":"总金额<br/><h3>2.013亿元</h3>","timesStr":"可传播<br/><h3>1678万次</h3>","pieceEach":"12.00元/份","timesEach":"12.00元/次","row":4},
 {"ladd":25,"multi":1,"priceAllList":[1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536,131072,262144,524288,1048576,2097152,4194304,8388608,16777216],"pieceAllList":[16777216,8388608,4194304,2097152,1048576,524288,262144,131072,65536,32768,16384,8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1],"timesAllList":[16777216,8388608,4194304,2097152,1048576,524288,262144,131072,65536,32768,16384,8192,4096,2048,1024,512,256,128,64,32,16,8,4,2,1],"priceAll":419430400,"pieceAll":33554431,"timesAll":33554431,"laddStr":"阶梯<br/><h3>25阶</h3>","pieceStr":"总份数<br/><h3>3355万份</h3>","priceStr":"总金额<br/><h3>4.194亿元</h3>","timesStr":"可传播<br/><h3>3355万次</h3>","pieceEach":"12.50元/份","timesEach":"12.50元/次","row":4}];
 
+var rankItem = [
+
+{title:"日榜", colorIdx: 1, seed: 1,
+list:[
+{title: '1.1 赞助商投放', text: '投放', vice: '2019年1月15日', group: "赞助商", seed: 1e4, lines:[], buttonIdx:[0,1,3]},
+{title: '1.2 赞助商捐赠', text: '捐赠', vice: '2019年1月15日', group: "赞助商", seed: 1e2, lines:[], buttonIdx:[0,1,3]},
+{title: '1.3 淘金者投入', text: '投入', vice: '2019年1月15日', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '1.4 淘金者抢夺', text: '抢夺', vice: '2019年1月15日', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '1.5 淘金者收益', text: '收益', vice: '2019年1月15日', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+{title: '1.6 淘金者捐赠', text: '捐赠', vice: '2019年1月15日', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+]},
 
 
+{title:"周榜", colorIdx: 2, seed: 7,
+list:[
+{title: '2.1 赞助商投放', text: '投放', vice: '2019年第2周', group: "赞助商", seed: 1e4, lines:[], buttonIdx:[0,1,3]},
+{title: '2.2 赞助商捐赠', text: '捐赠', vice: '2019年第2周', group: "赞助商", seed: 1e2, lines:[], buttonIdx:[0,1,3]},
+{title: '2.3 淘金者投入', text: '投入', vice: '2019年第2周', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '2.4 淘金者抢夺', text: '抢夺', vice: '2019年第2周', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '2.5 淘金者收益', text: '收益', vice: '2019年第2周', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+{title: '2.6 淘金者捐赠', text: '捐赠', vice: '2019年第2周', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+]},
+
+
+{title:"月榜", colorIdx: 3, seed: 30,
+list:[
+{title: '3.1 赞助商投放', text: '投放', vice: '2018年12月', group: "赞助商", seed: 1e4, lines:[], buttonIdx:[0,1,3]},
+{title: '3.2 赞助商捐赠', text: '捐赠', vice: '2018年12月', group: "赞助商", seed: 1e2, lines:[], buttonIdx:[0,1,3]},
+{title: '3.3 淘金者投入', text: '投入', vice: '2018年12月', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '3.4 淘金者抢夺', text: '抢夺', vice: '2018年12月', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '3.5 淘金者收益', text: '收益', vice: '2018年12月', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+{title: '3.6 淘金者捐赠', text: '捐赠', vice: '2018年12月', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+]},
+
+
+{title:"总榜", colorIdx: 4, seed: 750,
+list:[
+{title: '4.1 赞助商投放', text: '投放', vice: '2017年4月5日至今', group: "赞助商", seed: 1e4, lines:[], buttonIdx:[0,1,3]},
+{title: '4.2 赞助商捐赠', text: '捐赠', vice: '2017年4月5日至今', group: "赞助商", seed: 1e2, lines:[], buttonIdx:[0,1,3]},
+{title: '4.3 淘金者投入', text: '投入', vice: '2017年4月5日至今', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '4.4 淘金者抢夺', text: '抢夺', vice: '2017年4月5日至今', group: "淘金者", seed: 1e3, lines:[], buttonIdx:[0,1,3]},
+{title: '4.5 淘金者收益', text: '收益', vice: '2017年4月5日至今', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+{title: '4.6 淘金者捐赠', text: '捐赠', vice: '2017年4月5日至今', group: "淘金者", seed: 1e1, lines:[], buttonIdx:[0,1,3]},
+]},
+];
+
+
+var inveItem = [
+{title: '修炼', colorIdx: 1,
+list: [
+{title: '修炼中', vice: '请勿打扰！谢谢！', 
+dot: 1, isGrab: 1, group: '凡人',
+inverStr: '修炼者: ', flexStr: '@正在修炼',
+btnName: ['quit'],
+btnText: ['我佛慈悲'],
+lines: [
+{index: '1548342507258', stamp: '2019-01-24</br><h3>23:08:27',ladder: 12,  ladd: 8, multi: 3, inver: '我', tag: ['坚不可摧', '牢不可破', '势不可挡']},
+{index: '1548342507258', stamp: '2019-01-23</br><h3>12:18:10',ladder: 9,  ladd: 5, multi: 15, inver: '我', tag: ['坚不可摧', '牢不可破', '势不可挡']},
+]},
+{title: '修炼道场', vice: '绝世神功，在此练成！', 
+dot: 1, isGrab: 0, group: '凡人',
+inverStr: '修炼者: ', flexStr: '武功秘籍',
+btnName: ['doit', 'quit'],
+btnText: ['修炼', '敌法'],
+lines: []},
+]},
+
+
+{title: '斩妖', colorIdx: 2,
+list: [
+{title: '锁妖塔', vice: '我杀！故我在！！！',
+dot: 1, isGrab: 1, group: '妖女', instance: 'grab_str',
+puzzleText: "放下屠刀 立地成佛", cellText: "咒语", cellTips:"正确吟诵咒语击杀妖魔",
+inverStr: '领主: ', flexStr: '@的栖息地',
+btnName: ['next', 'quit', 'redo', 'abon', 'open', 'more', 'close'],
+btnText: ['格杀勿论', '我佛慈悲', '翻天覆地', '慈悲为怀', '观世音菩萨保佑', '深藏功与名', '灵魂超度'],
+lines: []}, 
+]},
+
+
+{title: '除魔', colorIdx: 3,
+list: [
+{title: '魔界', vice: '破山贼易，破心魔难！',
+dot: 100, isGrab: 1, group: '魔鬼', instance: 'gain_str',
+puzzleText: "阿弥陀佛 善哉善哉", cellText: "咒语", cellTips:"正确吟诵咒语击杀妖魔",
+inverStr: '领主: ', flexStr: '@的栖息地',
+btnName: ['next', 'quit', 'redo', 'abon', 'open', 'more', 'close'],
+btnText: ['斩草除根', '我佛慈悲', '翻云覆雨', '慈悲为怀', '观世音菩萨保佑', '深藏功与名', '灵魂超度'],
+lines: []},
+]}
+];
+
+
+var statItem = [
+
+{title:"日计", colorIdx: 1, seed: 1,
+list: [
+{title:"今日统计", vice:"2019/1/15日",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年1月15日"},
+]},
+{title:"近7日统计", vice:"2019/1/8日 - 2019/1/14日",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年11月14日"},
+{date:"2019年1月13日"},
+{date:"2019年1月12日"},
+{date:"2019年1月11日"},
+{date:"2019年1月10日"},
+{date:"2019年1月9日"},
+{date:"2019年1月8日"},
+]},
+]},
+
+
+{title:"周计", colorIdx: 2, seed: 7,
+list: [
+{title:"本周统计", vice:"2019/第3周",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年第3周"},
+]},
+{title:"近4周统计", vice:"2018/第51周 - 2019/第2周",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年第2周"},
+{date:"2019年第1周"},
+{date:"2018年第52周"},
+{date:"2018年第51周"},
+]},
+]},
+
+{title:"月计", colorIdx: 3, seed: 30,
+list: [
+{title:"本月统计", vice:"2019/1月",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年1月"},
+]},
+{title:"近12月统计", vice:"2018/1月 - 2018/12月",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2018年12月"},
+{date:"2018年11月"},
+{date:"2018年10月"},
+{date:"2018年9月"},
+{date:"2018年8月"},
+{date:"2018年7月"},
+{date:"2018年6月"},
+{date:"2018年5月"},
+{date:"2018年4月"},
+{date:"2018年3月"},
+{date:"2018年2月"},
+{date:"2018年1月"},
+]},
+]},
+
+
+{title:"年计", colorIdx: 4, seed: 365,
+list: [
+{title:"今年统计", vice:"2019年",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2019年至今"},
+]},
+{title:"近2年统计", vice:"2017年 - 2018年",
+lines: [
+{date:"日期", inve:"投入总量",grab:"抢夺总量",gain:"收益总量"},
+{date:"2018年全年"},
+{date:"2017年全年"},
+]},
+]},
+];
+
+
+var userItem = [
+	
+{title:"资料", colorIdx: 1,
+name: "[ZX]官方助手",
+uid: "1234567890", 
+area: "上海·静安区",
+sex: "女",
+age: 3,
+auth: "已认证", 
+ladd: 15, 
+cls: "高阶用户",
+rankAll: "999+",
+rankCity: "67", 
+rankArea: "5",
+valueAll: 256950, 
+valueUsed: 251700, 
+valueSurplus: 5250,
+tipsRank: "按照总权值和所在区域进行排名",
+tipsTag: "点击标签搜索赞助商和淘金者<br/>搜索结果按照标签分配的权值排序",
+editDetail: "编辑资料",
+editTags: "编辑标签",
+tags: [
+{text: "投资", value: 203350, limit: 200000, allot: 0.50},
+{text: "理财", value: 42680, limit: 40000, allot: 0.40},
+{text: "收益", value: 5670, limit: 5000, allot: 0.10},
+]},
+
+];

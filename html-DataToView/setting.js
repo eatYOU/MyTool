@@ -1,9 +1,41 @@
-var tb = "";
-var tk = "";
-var tv = "";
-var partList = [];
+window.onload = function() {
+	initData();
+}
 
-function dataListToView(dataList, dataType) {
+function initData() {
+	var viewConfig = [
+		{viewType:"data", color:"#846", bgcolor:"#eac", jsonFunc: toText(jsonToView), csvFunc: toText(csvToView)},
+		{viewType:"table", color:"#864", bgcolor:"#eca", jsonFunc: toText(jsonToTable), csvFunc: toText(csvToTable)},
+		{viewType:"line", color:"#468", bgcolor:"#ace", jsonFunc: toText(jsonToLine), csvFunc: toText(csvToLine)},
+		{viewType:"k&v", color:"#648", bgcolor:"#cae", jsonFunc: toText(jsonToValue), csvFunc: toText(csvToValue)},
+		{viewType:"list", color:"#684", bgcolor:"#cea", jsonFunc: toText(jsonToList), csvFunc: toText(csvToList)},
+	];
+
+	var csvList = [
+		{data: null, title: 'CSV DATA'},
+		{data: equip, title: 'EquipData'},
+		{data: inve, title: 'InveData'},
+	];
+
+	var jsonList = [
+		{data: null, title: 'JSON DATA'},
+		// {data: viewConfig, title: 'ViewFunction'},
+		{data: fundValue, title: 'FundValue'},
+		{data: logoText, title: 'LogoText'},
+		{data: logoImage, title: 'LogoImage'},
+		{data: inveLadd, title: 'InveLadd'},
+		{data: inveItem, title: 'InveItem'},
+		{data: rankItem, title: 'RankItem'},
+		{data: nexuItem, title: 'NexuItem'},
+		{data: statItem, title: 'StatItem'},
+		{data: userItem, title: 'UserItem'},
+	];
+	dataListToView(csvList, "csv", viewConfig);
+	dataListToView(jsonList, "json", viewConfig);
+}
+
+
+function dataListToView(dataList, dataType, viewConfig) {
 	for(let i in dataList) {
 		var title = dataList[i].title;
 		var outer = Elem.get('outer');
@@ -143,31 +175,6 @@ function jsonToList(data, title) {
 }
 
 
-function addTitle(title, x, isArr) {
-	var val = "<tr><td colspan='3' class='td-title'>" + title;
-	if (isArr)
-		val += "[" + x + "]" + "</td></tr>";
-	else
-		val += "." + x + "</td></tr>";
-	return val;
-}
-
-
-function toText(text) {
-	text = text.toString().replace(/</g, "|").replace(/>/g, "|");
-	return text.replace(/\n/g, '<br/>').replace(/\t/g, '    ').replace(/\r/g, '');
-}
-
-function toMatch(str, title) {
-	if (title == "ViewFunction")
-		return str;
-	str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
-	str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
-	str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
-	str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
-	str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
-	return str;
-}
 
 function csvToView(data, title, viewType) {
 	if (viewType == 'data')
@@ -286,4 +293,66 @@ function dataToView(val, title, type) {
 	var bg = Elem.get('bg_' + title);
 	var view = Elem.set("table", bg, 'view', title);
 	view.innerHTML = val;
+}
+
+
+
+function addTitle(title, x, isArr) {
+	var val = "<tr><td colspan='3' class='td-title'>" + title;
+	if (isArr)
+		val += "[" + x + "]" + "</td></tr>";
+	else
+		val += "." + x + "</td></tr>";
+	return val;
+}
+
+
+function toText(text) {
+	text = text.toString().replace(/</g, "|").replace(/>/g, "|");
+	return text.replace(/\n/g, '<br/>').replace(/\t/g, '    ').replace(/\r/g, '');
+}
+
+function toMatch(str, title) {
+	if (title == "ViewFunction")
+		return str;
+	str = str.replace(/'/g, '').replace(/"/g, '').replace(/},/g, '}');
+	str = str.replace(/\[{/g, '<table><tr><td><h3>').replace(/}]/g, ']');
+	str = str.replace(/\[/g, '<table><tr><td>').replace(/]/g, '</td></tr></table>');
+	str = str.replace(/{/g, '<tr><td><h3>').replace(/}/g, '</td></tr>');
+	str = str.replace(/,/g, '</td><td><h3>').replace(/:/g, '</h3>');
+	return str;
+}
+
+
+var Elem = {
+	get: function (name) {
+		return document.getElementById(name);
+	},
+	set: function (type, parent, className, idx) {
+		var item = document.createElement(type);
+		if (className)
+			item.className = className;
+		if (parent)
+			parent.appendChild(item);
+		if (idx && className)
+			item.id = className + "_" + idx;
+		return item;
+	},
+	color: function(elem, color, bgcolor) {
+		if (elem) {
+			elem.style.color = color;
+			elem.style.backgroundColor = bgcolor;
+		}
+	},
+	align: function(elem, align, width) {
+	    if (elem) {
+	        elem.style.textAlign = align;
+	        elem.style.width = width + "%";
+	    }
+	},
+	remove: function (elem) {
+	    if(elem)
+	        elem.parentNode.removeChild(elem);
+	    return !!elem;
+	}
 }
